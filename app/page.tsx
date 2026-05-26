@@ -16,7 +16,7 @@ export default function Home() {
       <div>
         <div style={{ fontSize: 48, marginBottom: 16 }}>✈</div>
         <h1 style={{ fontSize: 48, fontWeight: 300, marginBottom: 16 }}>
-          Brook Travel
+          Brook  Travel
         </h1>
         <p style={{ fontSize: 18, opacity: 0.7, marginBottom: 32 }}>
           Book International Flights With Confidence
