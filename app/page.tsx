@@ -1,36 +1,62 @@
-import Link from "next/link";
-
 export default function Home() {
   return (
-    <main style={{
-      minHeight: "100vh",
-      background: "linear-gradient(135deg, #0A1628, #1A3A6B)",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      fontFamily: "sans-serif",
-      color: "white",
-      textAlign: "center",
-      padding: "40px",
-    }}>
+    <main
+      style={{
+        minHeight: "100vh",
+        background: "linear-gradient(135deg, #04142d, #1a2f6b)",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        color: "white",
+        fontFamily: "Arial, sans-serif",
+        textAlign: "center",
+        padding: 20,
+      }}
+    >
       <div>
-        <div style={{ fontSize: 48, marginBottom: 16 }}>✈</div>
-        <h1 style={{ fontSize: 48, fontWeight: 300, marginBottom: 16 }}>
-          Brook  Travel
+        <div
+          style={{
+            fontSize: 60,
+            marginBottom: 20,
+          }}
+        >
+          ✈️
+        </div>
+
+        <h1
+          style={{
+            fontSize: 64,
+            marginBottom: 10,
+            fontWeight: "bold",
+          }}
+        >
+          Brook Travel
         </h1>
-        <p style={{ fontSize: 18, opacity: 0.7, marginBottom: 32 }}>
+
+        <p
+          style={{
+            fontSize: 24,
+            opacity: 0.85,
+            marginBottom: 40,
+          }}
+        >
           Book International Flights With Confidence
         </p>
-        <p style={{ 
-          background: "rgba(201,168,76,0.2)", 
-          border: "1px solid rgba(201,168,76,0.4)",
-          padding: "12px 24px", 
-          borderRadius: 8,
-          color: "#C9A84C",
-          fontSize: 14,
-        }}>
-          🚀 Website is live and running!
-        </p>
+
+        <button
+          style={{
+            background: "#f5b942",
+            color: "#000",
+            border: "none",
+            padding: "16px 36px",
+            borderRadius: 10,
+            fontSize: 18,
+            cursor: "pointer",
+            fontWeight: "bold",
+          }}
+        >
+          Search Flights
+        </button>
       </div>
     </main>
   );
