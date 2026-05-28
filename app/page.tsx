@@ -27,8 +27,8 @@ const fallbackAirports: AirportOption[] = [
 const slides = [
   {
     name: "Addis Ababa, Ethiopia",
-    image: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=1800&auto=format&fit=crop",
-    text: "From local U.S. trips to worldwide destinations, Brook Travel helps you find the right flight.",
+    image: "https://images.unsplash.com/photo-1578574577315-3fbeb0cecdc2?q=80&w=1800&auto=format&fit=crop",
+    text: "Personal flight support for Ethiopia, Africa, USA, Europe, and the Middle East.",
   },
   {
     name: "Dallas, USA",
@@ -38,12 +38,22 @@ const slides = [
   {
     name: "Lagos, Nigeria",
     image: "https://images.unsplash.com/photo-1618828665011-0abd973f7bb8?q=80&w=1800&auto=format&fit=crop",
-    text: "Travel to West Africa for family, business, events, and holidays.",
+    text: "Book flights for family visits, business travel, and West African connections.",
+  },
+  {
+    name: "Accra, Ghana",
+    image: "https://images.unsplash.com/photo-1577971132997-c10be9372519?q=80&w=1800&auto=format&fit=crop",
+    text: "Reliable ticket support for Ghana, Africa, and international destinations.",
+  },
+  {
+    name: "Nairobi, Kenya",
+    image: "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?q=80&w=1800&auto=format&fit=crop",
+    text: "East Africa travel made simple, personal, and professional.",
   },
   {
     name: "Dubai, UAE",
     image: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=1800&auto=format&fit=crop",
-    text: "Luxury travel, family vacations, and global flight connections.",
+    text: "Luxury travel, family vacations, and worldwide flight connections.",
   },
   {
     name: "Paris, France",
@@ -188,7 +198,7 @@ export default function Home() {
             <div style={brandPill}>BROOK TRAVEL</div>
 
             <h1 className="hero-title" style={{ fontSize: 72, lineHeight: 1.02, fontWeight: 950, color: "white", margin: "22px 0 16px" }}>
-              Flights made simple for domestic and international travel
+              Smart flight support for domestic and international travel
             </h1>
 
             <p style={{ color: "#dbeafe", fontSize: 22, lineHeight: 1.6, maxWidth: 760, fontWeight: 600 }}>
@@ -208,7 +218,7 @@ export default function Home() {
           </div>
 
           <div style={floatingCard}>
-            <div style={{ color: "#64748b", fontWeight: 800, fontSize: 13 }}>CURRENT FEATURED DESTINATION</div>
+            <div style={{ color: "#64748b", fontWeight: 800, fontSize: 13 }}>FEATURED ROUTE SUPPORT</div>
             <h2 style={{ fontSize: 34, margin: "10px 0", color: "#0f172a" }}>{active.name}</h2>
             <p style={{ color: "#475569", lineHeight: 1.6 }}>{active.text}</p>
             <a href="#booking" style={cardBtn}>Start Booking Request</a>
@@ -216,15 +226,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section style={{ maxWidth: 1120, margin: "-44px auto 0", padding: "0 24px", position: "relative", zIndex: 2 }}>
-        <div style={trustGrid}>
-          <div style={trustCard}>Domestic U.S. flights</div>
-          <div style={trustCard}>International flights</div>
-          <div style={trustCard}>Infant and family tickets</div>
-        </div>
-      </section>
-
-      <section id="booking" style={{ padding: "70px 24px", maxWidth: 1160, margin: "0 auto" }}>
+      <section id="booking" style={{ padding: "76px 24px", maxWidth: 1160, margin: "0 auto" }}>
         <div style={{ textAlign: "center", marginBottom: 30 }}>
           <div style={sectionPill}>FLIGHT REQUEST</div>
           <h2 style={{ fontSize: 46, margin: "12px 0 8px", color: "#0f172a" }}>Get a personalized flight quote</h2>
@@ -379,9 +381,6 @@ const primaryBtn = { background: "linear-gradient(90deg,#0b7a44,#f4c430,#b42318)
 const secondaryBtn = { color: "#ffffff", border: "2px solid rgba(255,255,255,.8)", padding: "16px 34px", borderRadius: 999, fontWeight: 950, textDecoration: "none", background: "rgba(255,255,255,.10)" };
 const cardBtn = { display: "inline-block", marginTop: 12, background: "#0f172a", color: "white", padding: "13px 20px", borderRadius: 999, fontWeight: 900, textDecoration: "none" };
 const sectionPill = { display: "inline-block", background: "#e0f2fe", color: "#075985", padding: "8px 14px", borderRadius: 999, fontWeight: 950, letterSpacing: 1 };
-
-const trustGrid = { display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(220px,1fr))", gap: 18 };
-const trustCard = { background: "#ffffff", border: "1px solid #dbeafe", borderRadius: 24, padding: 22, textAlign: "center" as const, fontWeight: 950, boxShadow: "0 18px 45px rgba(15,23,42,.08)" };
 
 const formStyle = {
   background: "linear-gradient(135deg,#ffffff,#eef6ff)",
