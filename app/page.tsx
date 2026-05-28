@@ -26,9 +26,9 @@ const fallbackAirports: AirportOption[] = [
 
 const slides = [
   {
-    name: "Addis Ababa, Ethiopia",
-    image: "https://images.unsplash.com/photo-1578574577315-3fbeb0cecdc2?q=80&w=1800&auto=format&fit=crop",
-    text: "Personal flight support for Ethiopia, Africa, USA, Europe, and the Middle East.",
+    name: "Ethiopia",
+    image: "https://images.unsplash.com/photo-1605649487212-47bdab064df7?q=80&w=1800&auto=format&fit=crop",
+    text: "Flights to Ethiopia, Africa, the USA, Europe, and worldwide destinations.",
   },
   {
     name: "Dallas, USA",
@@ -64,6 +64,7 @@ const slides = [
 
 export default function Home() {
   const [current, setCurrent] = useState(0);
+  const [showForm, setShowForm] = useState(false);
   const [airportOptions, setAirportOptions] = useState<AirportOption[]>(fallbackAirports);
   const [status, setStatus] = useState("");
   const [form, setForm] = useState({
@@ -80,9 +81,7 @@ export default function Home() {
   });
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % slides.length);
-    }, 4500);
+    const timer = setInterval(() => setCurrent((prev) => (prev + 1) % slides.length), 4500);
     return () => clearInterval(timer);
   }, []);
 
@@ -169,6 +168,55 @@ export default function Home() {
     }
   }
 
+  const bookingForm = (
+    <form onSubmit={submitBooking} className="form-grid" style={formStyle}>
+      <FieldGroup title="Full Name" text="Passenger or contact person’s full name.">
+        <input required placeholder="Example: Brook Gebre" value={form.fullName} onChange={(e) => updateField("fullName", e.target.value)} style={inputStyle} />
+      </FieldGroup>
+
+      <FieldGroup title="Departure City or Airport" text="Type airport code, city, airport, or country.">
+        <AirportInput label="Example: DFW, MSP, Addis, Dallas" value={form.departure} onChange={(v) => updateField("departure", v)} airportOptions={airportOptions} />
+      </FieldGroup>
+
+      <FieldGroup title="Destination City or Airport" text="Where is the traveler going?">
+        <AirportInput label="Example: ADD, Lagos, Dubai, London" value={form.destination} onChange={(v) => updateField("destination", v)} airportOptions={airportOptions} />
+      </FieldGroup>
+
+      <div className="date-row" style={{ gridColumn: "1 / -1", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 18 }}>
+        <FieldGroup title="Departure Date" text="Past dates are not allowed.">
+          <input required type="date" min={today} value={form.departureDate} onChange={(e) => updateField("departureDate", e.target.value)} style={inputStyle} />
+        </FieldGroup>
+
+        <FieldGroup title="Return Date" text="Must be after departure date. Leave blank for one-way.">
+          <input type="date" min={form.departureDate || today} value={form.returnDate} onChange={(e) => updateField("returnDate", e.target.value)} style={inputStyle} />
+        </FieldGroup>
+      </div>
+
+      <FieldGroup title="Number of Travelers" text="Example: 2 adults, 1 child, 1 infant.">
+        <input required placeholder="Example: 2 adults, 1 child, 1 infant" value={form.passengers} onChange={(e) => updateField("passengers", e.target.value)} style={inputStyle} />
+      </FieldGroup>
+
+      <FieldGroup title="Traveler Ages" text="Needed for child and infant pricing.">
+        <input placeholder="Example: Adult 35, Child 7, Infant 1" value={form.ages} onChange={(e) => updateField("ages", e.target.value)} style={inputStyle} />
+      </FieldGroup>
+
+      <FieldGroup title="Email Address" text="For sending quote details.">
+        <input type="email" placeholder="Example: customer@email.com" value={form.email} onChange={(e) => updateField("email", e.target.value)} style={inputStyle} />
+      </FieldGroup>
+
+      <FieldGroup title="Phone Number" text="Required. Best number to call or text.">
+        <input required type="tel" placeholder="Example: 612-978-1895" value={form.phone} onChange={(e) => updateField("phone", e.target.value)} style={inputStyle} />
+      </FieldGroup>
+
+      <FieldGroup title="Notes" text="Airline preference, baggage, flexible dates, layover request, or special needs." full>
+        <textarea placeholder="Example: Prefer Ethiopian Airlines, 2 checked bags, flexible by 2 days..." value={form.notes} onChange={(e) => updateField("notes", e.target.value)} style={textareaStyle} />
+      </FieldGroup>
+
+      <button type="submit" style={submitBtn}>Submit Flight Request</button>
+      {status && <p style={{ gridColumn: "1 / -1", fontWeight: 800, color: "#0f172a" }}>{status}</p>}
+    </form>
+  );
+
   return (
     <main style={{ background: "#f6f8fb", color: "#0f172a", fontFamily: "Arial, sans-serif" }}>
       <style>{`
@@ -178,6 +226,7 @@ export default function Home() {
           .hero-title { font-size: 44px !important; }
           .date-row { grid-template-columns: 1fr !important; }
           .form-grid { grid-template-columns: 1fr !important; }
+          .modal-box { max-height: 92vh !important; padding: 20px !important; }
         }
       `}</style>
 
@@ -206,14 +255,8 @@ export default function Home() {
             </p>
 
             <div style={{ display: "flex", gap: 14, flexWrap: "wrap", marginTop: 30 }}>
-              <a href="#booking" style={primaryBtn}>Request Flight Quote</a>
+              <button onClick={() => setShowForm(true)} style={primaryBtnButton}>Request Flight Quote</button>
               <a href="tel:+16129781895" style={secondaryBtn}>Call 612-978-1895</a>
-            </div>
-
-            <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginTop: 28 }}>
-              {["Domestic Tickets", "International Tickets", "Family Travel", "Africa Routes"].map((x) => (
-                <span key={x} style={miniTag}>{x}</span>
-              ))}
             </div>
           </div>
 
@@ -221,7 +264,7 @@ export default function Home() {
             <div style={{ color: "#64748b", fontWeight: 800, fontSize: 13 }}>FEATURED ROUTE SUPPORT</div>
             <h2 style={{ fontSize: 34, margin: "10px 0", color: "#0f172a" }}>{active.name}</h2>
             <p style={{ color: "#475569", lineHeight: 1.6 }}>{active.text}</p>
-            <a href="#booking" style={cardBtn}>Start Booking Request</a>
+            <button onClick={() => setShowForm(true)} style={cardBtnButton}>Start Booking Request</button>
           </div>
         </div>
       </section>
@@ -234,53 +277,7 @@ export default function Home() {
             Submit your trip details. Brook Travel will review and contact you with options.
           </p>
         </div>
-
-        <form onSubmit={submitBooking} className="form-grid" style={formStyle}>
-          <FieldGroup title="Full Name" text="Passenger or contact person’s full name.">
-            <input required placeholder="Example: Brook Gebre" value={form.fullName} onChange={(e) => updateField("fullName", e.target.value)} style={inputStyle} />
-          </FieldGroup>
-
-          <FieldGroup title="Departure City or Airport" text="Type airport code, city, airport, or country.">
-            <AirportInput label="Example: DFW, MSP, Addis, Dallas" value={form.departure} onChange={(v) => updateField("departure", v)} airportOptions={airportOptions} />
-          </FieldGroup>
-
-          <FieldGroup title="Destination City or Airport" text="Where is the traveler going?">
-            <AirportInput label="Example: ADD, Lagos, Dubai, London" value={form.destination} onChange={(v) => updateField("destination", v)} airportOptions={airportOptions} />
-          </FieldGroup>
-
-          <div className="date-row" style={{ gridColumn: "1 / -1", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 18 }}>
-            <FieldGroup title="Departure Date" text="Past dates are not allowed.">
-              <input required type="date" min={today} value={form.departureDate} onChange={(e) => updateField("departureDate", e.target.value)} style={inputStyle} />
-            </FieldGroup>
-
-            <FieldGroup title="Return Date" text="Must be after departure date. Leave blank for one-way.">
-              <input type="date" min={form.departureDate || today} value={form.returnDate} onChange={(e) => updateField("returnDate", e.target.value)} style={inputStyle} />
-            </FieldGroup>
-          </div>
-
-          <FieldGroup title="Number of Travelers" text="Example: 2 adults, 1 child, 1 infant.">
-            <input required placeholder="Example: 2 adults, 1 child, 1 infant" value={form.passengers} onChange={(e) => updateField("passengers", e.target.value)} style={inputStyle} />
-          </FieldGroup>
-
-          <FieldGroup title="Traveler Ages" text="Needed for child and infant pricing.">
-            <input placeholder="Example: Adult 35, Child 7, Infant 1" value={form.ages} onChange={(e) => updateField("ages", e.target.value)} style={inputStyle} />
-          </FieldGroup>
-
-          <FieldGroup title="Email Address" text="For sending quote details.">
-            <input type="email" placeholder="Example: customer@email.com" value={form.email} onChange={(e) => updateField("email", e.target.value)} style={inputStyle} />
-          </FieldGroup>
-
-          <FieldGroup title="Phone Number" text="Required. Best number to call or text.">
-            <input required type="tel" placeholder="Example: 612-978-1895" value={form.phone} onChange={(e) => updateField("phone", e.target.value)} style={inputStyle} />
-          </FieldGroup>
-
-          <FieldGroup title="Notes" text="Airline preference, baggage, flexible dates, layover request, or special needs." full>
-            <textarea placeholder="Example: Prefer Ethiopian Airlines, 2 checked bags, flexible by 2 days..." value={form.notes} onChange={(e) => updateField("notes", e.target.value)} style={textareaStyle} />
-          </FieldGroup>
-
-          <button type="submit" style={submitBtn}>Submit Flight Request</button>
-          {status && <p style={{ gridColumn: "1 / -1", fontWeight: 800, color: "#0f172a" }}>{status}</p>}
-        </form>
+        {bookingForm}
       </section>
 
       <section style={{ padding: "20px 24px 80px", maxWidth: 1180, margin: "0 auto" }}>
@@ -297,6 +294,21 @@ export default function Home() {
           ))}
         </div>
       </section>
+
+      {showForm && (
+        <div style={modalOverlay}>
+          <div className="modal-box" style={modalBox}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 16, marginBottom: 18 }}>
+              <div>
+                <div style={sectionPill}>FLIGHT REQUEST</div>
+                <h2 style={{ margin: "10px 0 0", fontSize: 30 }}>Request a Flight Quote</h2>
+              </div>
+              <button onClick={() => setShowForm(false)} style={closeBtn}>×</button>
+            </div>
+            {bookingForm}
+          </div>
+        </div>
+      )}
 
       <a href="tel:+16129781895" style={callBtn}>Call 612-978-1895</a>
     </main>
@@ -348,67 +360,21 @@ function AirportInput({ label, value, onChange, airportOptions }: { label: strin
   );
 }
 
-const brandPill = {
-  display: "inline-block",
-  background: "rgba(255,255,255,.14)",
-  border: "1px solid rgba(255,255,255,.24)",
-  color: "#f7c948",
-  borderRadius: 999,
-  padding: "9px 16px",
-  fontWeight: 950,
-  letterSpacing: 2,
-};
-
-const miniTag = {
-  color: "#e0f2fe",
-  background: "rgba(255,255,255,.12)",
-  border: "1px solid rgba(255,255,255,.20)",
-  borderRadius: 999,
-  padding: "10px 14px",
-  fontWeight: 800,
-};
-
-const floatingCard = {
-  background: "rgba(255,255,255,.90)",
-  border: "1px solid rgba(255,255,255,.70)",
-  borderRadius: 30,
-  padding: 28,
-  boxShadow: "0 30px 80px rgba(0,0,0,.25)",
-  backdropFilter: "blur(14px)",
-};
-
-const primaryBtn = { background: "linear-gradient(90deg,#0b7a44,#f4c430,#b42318)", color: "#0f172a", padding: "16px 34px", borderRadius: 999, fontWeight: 950, textDecoration: "none", boxShadow: "0 16px 35px rgba(0,0,0,.22)" };
+const brandPill = { display: "inline-block", background: "rgba(255,255,255,.14)", border: "1px solid rgba(255,255,255,.24)", color: "#f7c948", borderRadius: 999, padding: "9px 16px", fontWeight: 950, letterSpacing: 2 };
+const floatingCard = { background: "rgba(255,255,255,.90)", border: "1px solid rgba(255,255,255,.70)", borderRadius: 30, padding: 28, boxShadow: "0 30px 80px rgba(0,0,0,.25)", backdropFilter: "blur(14px)" };
+const primaryBtnButton = { background: "linear-gradient(90deg,#0b7a44,#f4c430,#b42318)", color: "#0f172a", padding: "16px 34px", borderRadius: 999, fontWeight: 950, border: "none", cursor: "pointer", fontSize: 16, boxShadow: "0 16px 35px rgba(0,0,0,.22)" };
 const secondaryBtn = { color: "#ffffff", border: "2px solid rgba(255,255,255,.8)", padding: "16px 34px", borderRadius: 999, fontWeight: 950, textDecoration: "none", background: "rgba(255,255,255,.10)" };
-const cardBtn = { display: "inline-block", marginTop: 12, background: "#0f172a", color: "white", padding: "13px 20px", borderRadius: 999, fontWeight: 900, textDecoration: "none" };
+const cardBtnButton = { display: "inline-block", marginTop: 12, background: "#0f172a", color: "white", padding: "13px 20px", borderRadius: 999, fontWeight: 900, border: "none", cursor: "pointer" };
 const sectionPill = { display: "inline-block", background: "#e0f2fe", color: "#075985", padding: "8px 14px", borderRadius: 999, fontWeight: 950, letterSpacing: 1 };
 
-const formStyle = {
-  background: "linear-gradient(135deg,#ffffff,#eef6ff)",
-  color: "#111827",
-  padding: 30,
-  borderRadius: 34,
-  display: "grid",
-  gridTemplateColumns: "repeat(auto-fit,minmax(280px,1fr))",
-  gap: 18,
-  boxShadow: "0 30px 90px rgba(15,23,42,.12)",
-  border: "1px solid #dbeafe",
-};
-
-const inputStyle = {
-  width: "100%",
-  padding: 15,
-  borderRadius: 16,
-  border: "1px solid #cbd5e1",
-  fontSize: 15,
-  boxSizing: "border-box" as const,
-  background: "white",
-  outline: "none",
-};
-
+const formStyle = { background: "linear-gradient(135deg,#ffffff,#eef6ff)", color: "#111827", padding: 30, borderRadius: 34, display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(280px,1fr))", gap: 18, boxShadow: "0 30px 90px rgba(15,23,42,.12)", border: "1px solid #dbeafe" };
+const inputStyle = { width: "100%", padding: 15, borderRadius: 16, border: "1px solid #cbd5e1", fontSize: 15, boxSizing: "border-box" as const, background: "white", outline: "none" };
 const textareaStyle = { ...inputStyle, minHeight: 125 };
 const submitBtn = { gridColumn: "1 / -1", background: "linear-gradient(90deg,#0b7a44,#f4c430,#b42318)", color: "#0f172a", border: "none", padding: 18, borderRadius: 18, fontWeight: 950, fontSize: 18, cursor: "pointer", boxShadow: "0 16px 35px rgba(15,23,42,.16)" };
 const destinationCard = { background: "white", borderRadius: 26, overflow: "hidden", boxShadow: "0 20px 55px rgba(15,23,42,.10)", border: "1px solid #dbeafe" };
 const callBtn = { position: "fixed" as const, right: 24, bottom: 24, background: "#b42318", color: "white", padding: "14px 22px", borderRadius: 999, fontWeight: 950, textDecoration: "none", boxShadow: "0 10px 30px rgba(0,0,0,.25)" };
-
+const modalOverlay = { position: "fixed" as const, inset: 0, background: "rgba(2,6,23,.72)", zIndex: 1000, display: "flex", alignItems: "center", justifyContent: "center", padding: 18 };
+const modalBox = { width: "100%", maxWidth: 1120, maxHeight: "90vh", overflowY: "auto" as const, background: "#f8fbff", borderRadius: 34, padding: 28, boxShadow: "0 40px 120px rgba(0,0,0,.45)" };
+const closeBtn = { width: 44, height: 44, borderRadius: 999, border: "none", background: "#0f172a", color: "white", fontSize: 26, cursor: "pointer" };
 const suggestionBox = { position: "absolute" as const, zIndex: 50, background: "white", color: "#111827", border: "1px solid #ddd", borderRadius: 16, marginTop: 6, width: "100%", maxHeight: 340, overflowY: "auto" as const, boxShadow: "0 18px 45px rgba(0,0,0,.18)" };
 const suggestionItem = { padding: 14, cursor: "pointer", borderBottom: "1px solid #f1f1f1" };
