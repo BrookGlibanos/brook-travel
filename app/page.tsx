@@ -28,37 +28,27 @@ const slides = [
   {
     name: "Ethiopia",
     image: "https://images.unsplash.com/photo-1605649487212-47bdab064df7?q=80&w=1800&auto=format&fit=crop",
-    text: "Flights to Ethiopia, Africa, the USA, Europe, and worldwide destinations.",
+    text: "Domestic and international flight support for families, business travelers, and worldwide trips.",
   },
   {
     name: "Dallas, USA",
     image: "https://images.unsplash.com/photo-1531218150217-54595bc2b934?q=80&w=1800&auto=format&fit=crop",
-    text: "Domestic flights across the U.S. with simple, personal booking support.",
+    text: "Simple booking support for domestic U.S. flights and international connections.",
   },
   {
     name: "Lagos, Nigeria",
     image: "https://images.unsplash.com/photo-1618828665011-0abd973f7bb8?q=80&w=1800&auto=format&fit=crop",
-    text: "Book flights for family visits, business travel, and West African connections.",
+    text: "Travel support for West Africa, family visits, business trips, and events.",
   },
   {
     name: "Accra, Ghana",
     image: "https://images.unsplash.com/photo-1577971132997-c10be9372519?q=80&w=1800&auto=format&fit=crop",
-    text: "Reliable ticket support for Ghana, Africa, and international destinations.",
-  },
-  {
-    name: "Nairobi, Kenya",
-    image: "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?q=80&w=1800&auto=format&fit=crop",
-    text: "East Africa travel made simple, personal, and professional.",
+    text: "Reliable ticket help for Ghana, Africa, and global destinations.",
   },
   {
     name: "Dubai, UAE",
     image: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=1800&auto=format&fit=crop",
-    text: "Luxury travel, family vacations, and worldwide flight connections.",
-  },
-  {
-    name: "Paris, France",
-    image: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=80&w=1800&auto=format&fit=crop",
-    text: "Plan memorable international trips with trusted guidance.",
+    text: "Worldwide connections, family vacations, and smooth travel planning.",
   },
 ];
 
@@ -218,11 +208,11 @@ export default function Home() {
   );
 
   return (
-    <main style={{ background: "#f6f8fb", color: "#0f172a", fontFamily: "Arial, sans-serif" }}>
+    <main style={{ background: "#f7f9fc", color: "#0f172a", fontFamily: "Arial, sans-serif" }}>
       <style>{`
         html { scroll-behavior: smooth; }
+
         @media (max-width: 760px) {
-          .hero-grid { grid-template-columns: 1fr !important; }
           .hero-title { font-size: 44px !important; }
           .date-row { grid-template-columns: 1fr !important; }
           .form-grid { grid-template-columns: 1fr !important; }
@@ -232,8 +222,8 @@ export default function Home() {
 
       <section
         style={{
-          minHeight: "94vh",
-          backgroundImage: `linear-gradient(120deg, rgba(7,17,31,.86), rgba(7,17,31,.45), rgba(7,17,31,.15)), url('${active.image}')`,
+          minHeight: "88vh",
+          backgroundImage: `linear-gradient(90deg, rgba(7,17,31,.78), rgba(7,17,31,.35), rgba(7,17,31,.08)), url('${active.image}')`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           transition: "background-image 1.2s ease-in-out",
@@ -242,57 +232,33 @@ export default function Home() {
           alignItems: "center",
         }}
       >
-        <div className="hero-grid" style={{ maxWidth: 1180, margin: "0 auto", display: "grid", gridTemplateColumns: "1.15fr .85fr", gap: 28, alignItems: "center" }}>
-          <div>
-            <div style={brandPill}>BROOK TRAVEL</div>
+        <div style={{ maxWidth: 1050, margin: "0 auto", width: "100%" }}>
+          <div style={brandPill}>BROOK TRAVEL</div>
 
-            <h1 className="hero-title" style={{ fontSize: 72, lineHeight: 1.02, fontWeight: 950, color: "white", margin: "22px 0 16px" }}>
-              Smart flight support for domestic and international travel
-            </h1>
+          <h1 className="hero-title" style={{ fontSize: 64, lineHeight: 1.06, fontWeight: 900, color: "white", margin: "22px 0 16px", maxWidth: 820 }}>
+            Simple flight booking support for domestic and international trips
+          </h1>
 
-            <p style={{ color: "#dbeafe", fontSize: 22, lineHeight: 1.6, maxWidth: 760, fontWeight: 600 }}>
-              {active.text}
-            </p>
+          <p style={{ color: "#e8f1ff", fontSize: 22, lineHeight: 1.6, maxWidth: 720, fontWeight: 600 }}>
+            {active.text}
+          </p>
 
-            <div style={{ display: "flex", gap: 14, flexWrap: "wrap", marginTop: 30 }}>
-              <button onClick={() => setShowForm(true)} style={primaryBtnButton}>Request Flight Quote</button>
-              <a href="tel:+16129781895" style={secondaryBtn}>Call 612-978-1895</a>
-            </div>
-          </div>
-
-          <div style={floatingCard}>
-            <div style={{ color: "#64748b", fontWeight: 800, fontSize: 13 }}>FEATURED ROUTE SUPPORT</div>
-            <h2 style={{ fontSize: 34, margin: "10px 0", color: "#0f172a" }}>{active.name}</h2>
-            <p style={{ color: "#475569", lineHeight: 1.6 }}>{active.text}</p>
-            <button onClick={() => setShowForm(true)} style={cardBtnButton}>Start Booking Request</button>
-          </div>
+          <button onClick={() => setShowForm(true)} style={primaryBtnButton}>
+            Request Flight Quote
+          </button>
         </div>
       </section>
 
       <section id="booking" style={{ padding: "76px 24px", maxWidth: 1160, margin: "0 auto" }}>
         <div style={{ textAlign: "center", marginBottom: 30 }}>
           <div style={sectionPill}>FLIGHT REQUEST</div>
-          <h2 style={{ fontSize: 46, margin: "12px 0 8px", color: "#0f172a" }}>Get a personalized flight quote</h2>
+          <h2 style={{ fontSize: 44, margin: "12px 0 8px", color: "#0f172a" }}>Get a personalized flight quote</h2>
           <p style={{ color: "#64748b", fontSize: 18 }}>
             Submit your trip details. Brook Travel will review and contact you with options.
           </p>
         </div>
-        {bookingForm}
-      </section>
 
-      <section style={{ padding: "20px 24px 80px", maxWidth: 1180, margin: "0 auto" }}>
-        <h2 style={{ textAlign: "center", fontSize: 38, color: "#0f172a" }}>Popular places we can help you reach</h2>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(250px,1fr))", gap: 24, marginTop: 28 }}>
-          {slides.map((place) => (
-            <div key={place.name} style={destinationCard}>
-              <img src={place.image} alt={place.name} style={{ width: "100%", height: 220, objectFit: "cover" }} />
-              <div style={{ padding: 20 }}>
-                <h3 style={{ color: "#0f172a" }}>{place.name}</h3>
-                <p style={{ color: "#64748b", lineHeight: 1.6 }}>{place.text}</p>
-              </div>
-            </div>
-          ))}
-        </div>
+        {bookingForm}
       </section>
 
       {showForm && (
@@ -317,8 +283,8 @@ export default function Home() {
 
 function FieldGroup({ title, text, full, children }: { title: string; text: string; full?: boolean; children: React.ReactNode }) {
   return (
-    <div style={{ gridColumn: full ? "1 / -1" : "auto", background: "rgba(255,255,255,.86)", border: "1px solid #dbeafe", borderRadius: 22, padding: 16, boxShadow: "0 10px 30px rgba(15,23,42,.05)" }}>
-      <label style={{ display: "block", fontWeight: 950, color: "#0f172a", marginBottom: 4 }}>{title}</label>
+    <div style={{ gridColumn: full ? "1 / -1" : "auto", background: "rgba(255,255,255,.9)", border: "1px solid #dbeafe", borderRadius: 22, padding: 16, boxShadow: "0 10px 30px rgba(15,23,42,.05)" }}>
+      <label style={{ display: "block", fontWeight: 900, color: "#0f172a", marginBottom: 4 }}>{title}</label>
       <p style={{ fontSize: 13, color: "#64748b", marginTop: 0, marginBottom: 10 }}>{text}</p>
       {children}
     </div>
@@ -360,19 +326,15 @@ function AirportInput({ label, value, onChange, airportOptions }: { label: strin
   );
 }
 
-const brandPill = { display: "inline-block", background: "rgba(255,255,255,.14)", border: "1px solid rgba(255,255,255,.24)", color: "#f7c948", borderRadius: 999, padding: "9px 16px", fontWeight: 950, letterSpacing: 2 };
-const floatingCard = { background: "rgba(255,255,255,.90)", border: "1px solid rgba(255,255,255,.70)", borderRadius: 30, padding: 28, boxShadow: "0 30px 80px rgba(0,0,0,.25)", backdropFilter: "blur(14px)" };
-const primaryBtnButton = { background: "linear-gradient(90deg,#0b7a44,#f4c430,#b42318)", color: "#0f172a", padding: "16px 34px", borderRadius: 999, fontWeight: 950, border: "none", cursor: "pointer", fontSize: 16, boxShadow: "0 16px 35px rgba(0,0,0,.22)" };
-const secondaryBtn = { color: "#ffffff", border: "2px solid rgba(255,255,255,.8)", padding: "16px 34px", borderRadius: 999, fontWeight: 950, textDecoration: "none", background: "rgba(255,255,255,.10)" };
-const cardBtnButton = { display: "inline-block", marginTop: 12, background: "#0f172a", color: "white", padding: "13px 20px", borderRadius: 999, fontWeight: 900, border: "none", cursor: "pointer" };
-const sectionPill = { display: "inline-block", background: "#e0f2fe", color: "#075985", padding: "8px 14px", borderRadius: 999, fontWeight: 950, letterSpacing: 1 };
+const brandPill = { display: "inline-block", background: "rgba(255,255,255,.14)", border: "1px solid rgba(255,255,255,.24)", color: "#f7c948", borderRadius: 999, padding: "9px 16px", fontWeight: 900, letterSpacing: 2 };
+const primaryBtnButton = { marginTop: 28, background: "linear-gradient(90deg,#0b7a44,#f4c430,#b42318)", color: "#0f172a", padding: "16px 34px", borderRadius: 999, fontWeight: 900, border: "none", cursor: "pointer", fontSize: 16, boxShadow: "0 16px 35px rgba(0,0,0,.22)" };
+const sectionPill = { display: "inline-block", background: "#e0f2fe", color: "#075985", padding: "8px 14px", borderRadius: 999, fontWeight: 900, letterSpacing: 1 };
 
 const formStyle = { background: "linear-gradient(135deg,#ffffff,#eef6ff)", color: "#111827", padding: 30, borderRadius: 34, display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(280px,1fr))", gap: 18, boxShadow: "0 30px 90px rgba(15,23,42,.12)", border: "1px solid #dbeafe" };
 const inputStyle = { width: "100%", padding: 15, borderRadius: 16, border: "1px solid #cbd5e1", fontSize: 15, boxSizing: "border-box" as const, background: "white", outline: "none" };
 const textareaStyle = { ...inputStyle, minHeight: 125 };
-const submitBtn = { gridColumn: "1 / -1", background: "linear-gradient(90deg,#0b7a44,#f4c430,#b42318)", color: "#0f172a", border: "none", padding: 18, borderRadius: 18, fontWeight: 950, fontSize: 18, cursor: "pointer", boxShadow: "0 16px 35px rgba(15,23,42,.16)" };
-const destinationCard = { background: "white", borderRadius: 26, overflow: "hidden", boxShadow: "0 20px 55px rgba(15,23,42,.10)", border: "1px solid #dbeafe" };
-const callBtn = { position: "fixed" as const, right: 24, bottom: 24, background: "#b42318", color: "white", padding: "14px 22px", borderRadius: 999, fontWeight: 950, textDecoration: "none", boxShadow: "0 10px 30px rgba(0,0,0,.25)" };
+const submitBtn = { gridColumn: "1 / -1", background: "linear-gradient(90deg,#0b7a44,#f4c430,#b42318)", color: "#0f172a", border: "none", padding: 18, borderRadius: 18, fontWeight: 900, fontSize: 18, cursor: "pointer", boxShadow: "0 16px 35px rgba(15,23,42,.16)" };
+const callBtn = { position: "fixed" as const, right: 24, bottom: 24, background: "#b42318", color: "white", padding: "14px 22px", borderRadius: 999, fontWeight: 900, textDecoration: "none", boxShadow: "0 10px 30px rgba(0,0,0,.25)" };
 const modalOverlay = { position: "fixed" as const, inset: 0, background: "rgba(2,6,23,.72)", zIndex: 1000, display: "flex", alignItems: "center", justifyContent: "center", padding: 18 };
 const modalBox = { width: "100%", maxWidth: 1120, maxHeight: "90vh", overflowY: "auto" as const, background: "#f8fbff", borderRadius: 34, padding: 28, boxShadow: "0 40px 120px rgba(0,0,0,.45)" };
 const closeBtn = { width: 44, height: 44, borderRadius: 999, border: "none", background: "#0f172a", color: "white", fontSize: 26, cursor: "pointer" };
